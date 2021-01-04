@@ -313,7 +313,7 @@ class StudentsController extends Controller
             $degree->dg_admin_x2 = auth()->user()->id;
             $degree->save();
         } else {
-            $degree->dg_degree_final_x2 = $request->x60 == 0;
+            $degree->dg_degree_final_x2 = $request->x60;
             $degree->dg_degree_final_text_x2 = Nums::find($request->x60)->numbers;
             $degree->dg_all_x2 = $request->x60 + $request->x40;
             $degree->dg_all_text_x2 = Nums::find($request->x60 + $request->x40)->numbers;

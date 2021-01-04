@@ -94,8 +94,10 @@
                             <div class="col-sm-2">
                                 <p></p>
                                 <br>
-                                <button id="search" type="submit" style="text-align: right"
-                                    class="btn btn-lg btn-primary">گەڕان</button>
+                                <button id="search" type="submit" name="submitbtn" value="search"
+                                    style="text-align: right" class="btn btn-lg btn-primary">گەڕان</button>
+                                <button id="report" type="submit" name="submitbtn" value="report"
+                                    style="text-align: right" class="btn btn-lg btn-warning">ڕاپۆرت</button>
                             </div>
                         </form>
 
@@ -138,7 +140,8 @@
                                 قەرار
                                 <div class="form-group ml-2">
                                     <div class="custom-control custom-checkbox">
-                                        <button type="button" class="btn btn-primary" id="input-alert">پێدانی نمرەی قەرار</button>
+                                        <button type="button" class="btn btn-primary" id="input-alert">پێدانی نمرەی
+                                            قەرار</button>
                                     </div>
                                 </div>
                             </th>
@@ -174,7 +177,8 @@
                         <td style="text-align: right">
                             {{$value->dg_bryar_x1 + $value->dg_49_x1 +$value->dg_all_x1}}
                         </td>
-                        <td style="text-align: right;color: {{$value->dg_bryar_x1 > 0 ? 'orange':'black'}}">{{$value->dg_bryar_x1}}</td>
+                        <td style="text-align: right;color: {{$value->dg_bryar_x1 > 0 ? 'orange':'black'}}">
+                            {{$value->dg_bryar_x1}}</td>
                         <td style="text-align: right;color: {{$value->dg_49_x1 == 1 ? 'blue':'black'}}">
                             {{$value->dg_49_x1}}</td>
                         <td style="text-align: right">{{isset($value->report) ? $value->report->r_report :'نییە'}}</td>
@@ -192,7 +196,8 @@
                     @else
                     @isset($value->degreex2)
 
-                    <tr style="color: {{$value->degreex2->dg_all_x2  +$value->degreex2->dg_49_x2 + $value->degreex2->dg_bryar_x2 < 50 ? 'red':'black'}}">
+                    <tr
+                        style="color: {{$value->degreex2->dg_all_x2  +$value->degreex2->dg_49_x2 + $value->degreex2->dg_bryar_x2 < 50 ? 'red':'black'}}">
                         <td style="text-align: right">
                             {{isset($old['xwl_old']) ? $old['xwl_old'] == 1 ? 'یەکەم' : 'دووەم' : 'یەکەم'   }}</td>
                         <td style="text-align: right">
@@ -229,8 +234,10 @@
                         <td style="text-align: right;color:">
                             {{isset($old['xwl_old']) ? $old['xwl_old'] == 1 ? 'یەکەم' : 'دووەم' : 'یەکەم'}}</td>
                         <td style="text-align: right">{{$value->dg_bryar_x1 + $value->dg_49_x1 +$value->dg_all_x1}}</td>
-                        <td style="text-align: right;color: {{$value->dg_bryar_x1 > 0 ? 'orange':'black'}}">{{$value->dg_bryar_x1}}</td>
-                        <td style="text-align: right;color: {{$value->dg_49_x1 == 1 ? 'blue':'black'}}">{{$value->dg_49_x1}}</td>
+                        <td style="text-align: right;color: {{$value->dg_bryar_x1 > 0 ? 'orange':'black'}}">
+                            {{$value->dg_bryar_x1}}</td>
+                        <td style="text-align: right;color: {{$value->dg_49_x1 == 1 ? 'blue':'black'}}">
+                            {{$value->dg_49_x1}}</td>
                         <td style="text-align: right">{{isset($value->report) ? $value->report->r_report :'نییە'}}</td>
                         <td style="text-align: right">{{$value->dg_all_text_x1  ?? 'صفر'}}</td>
                         <td style="text-align: right">{{$value->dg_all_x1}}</td>

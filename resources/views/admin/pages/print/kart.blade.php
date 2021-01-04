@@ -44,8 +44,8 @@
         }
 
         .orage-header {
-            background-color: #577C6BAA !important;
-            color: #FFF !important;
+            background-color: rgb(214, 214, 214) !important;
+            color: #000 !important;
             font-weight: bold !important;
         }
 
@@ -53,9 +53,10 @@
             border-bottom: 1px solid #DDD !important;
         }
 
+        /*
         .main-table>tr:nth-of-type(odd) {
             background-color: #F2F2F2 !important;
-        }
+        } */
 
         .print {
             page-break-after: always;
@@ -68,6 +69,9 @@
 
 <body>
     @foreach ($data as $key=>$value)
+    @php
+    $darnachu = 0;
+    @endphp
     @if ($round == 1)
     <div class="container print">
         <div class="row">
@@ -75,17 +79,17 @@
                 <div class="card">
                     <div class="card-body p-0">
                         <div class="row pt-3">
-                            <div class="col-sm-4 text-right px-5">
-                                <p class="px-3">وەرز : {{$semester}}</p>
-                                <p class="px-3">خول : {{$round}}</p>
-                                <p class="px-3">قۆناغ : {{$stage}}</p>
+                            <div class="col-sm-5 text-left px-5">
+                                <p class="px-3">وەرز : {{toTextTH($semester)}}</p>
+                                <p class="px-3">خول : {{toTextTH($round)}}</p>
+                                <p class="px-3">قۆناغ : {{toTextTH($stage)}}</p>
                             </div>
-                            <div class="col-sm-4">
-                                <img src="{{asset("lg.png")}}" class="img-fluid">
+                            <div class="col-sm-2 align-items-center">
+                                <center> <img src="{{asset("lg.png")}}" height="200px" width="200px" class="img-fluid">
+                                </center>
                             </div>
-                            <div class="col-sm-4 text-right px-5">
+                            <div class="col-sm-5 text-right px-5">
                                 <p class="px-3">کۆلێجی زانکۆی گۆیژە</p>
-                                <p class="px-3">بۆ دیراساتی ئاینیی</p>
                                 <p class="px-3">بەش: {{$value->department->d_name}}</p>
                             </div>
                         </div>
@@ -123,7 +127,7 @@
                             <div class="col-md-12">
                                 <table style="width: 100%; border-collapse: collapse; margin-bottom: 1rem">
                                     <thead>
-                                        <tr style="height: 100px !important" class="orage-header">
+                                        <tr style="height: 75px !important" class="orage-header">
                                             <th class="border-0 text-uppercase small" style="text-align:center;">ئاست
                                             </th>
                                             <th class="border-0 text-uppercase small" style="text-align:center;">بابەت
@@ -134,165 +138,177 @@
                                     </thead>
                                     <tbody class="main-table">
                                         @foreach ($value->degreeAll as $zhm=>$item)
-                                        <tr style="height: 100px !important">
+                                        <tr style="height: 75px !important">
                                             <td style="text-align:center;">
                                                 {{setRange($item->dg_bryar_x1+$item->dg_all_x1+$item->dg_49_x1)}}
                                             </td>
                                             <td style="text-align:center;">{{$item->course->c_name}}</td>
                                             <td style="text-align:center;">{{++$zhm}}</td>
                                         </tr>
-                                        @endforeach
-                                        {{-- @foreach ($value->degree1->degree2 as $item)
+                                        @if ($item->dg_bryar_x1+$item->dg_all_x1+$item->dg_49_x1 < 50) @php $darnachu++;
+                                            @endphp @endif @endforeach {{-- @foreach ($value->degree1->degree2 as $item)
                                            
-                                       @endforeach --}}
+                                       @endforeach --}} </tbody> </table> </div> </div> <div class="row  px-5">
+                                            <div class="col-6 text-left pl-5"><br><br><br><br><br>لیژنەی تاقیکردنەوەکان</div>
+                                            @if($darnachu != 0)
+                                            <div class="col-6 text-right">ئەنجام : دەرنەچووە</div>
+                                            @else
+                                            <div class="col-6 text-right">ئەنجام : دەرچووە</div>
 
-                                    </tbody>
-                                </table>
+                                            @endif
                             </div>
-                        </div>
-                        <div class="row  px-5">
-                            <div class="col-6 text-left pl-5">لیژنەی تاقیکردنەوەکان</div>
-                            <div class="col-6 text-right">ئەنجام : دەرچووە</div>
-                        </div>
-                        <br>
-                        <br>
-                        <div class="row px-5">
-                            <div class="col-2 text-right"></div>
-                            <div class="col-10 text-right">تێبینی: ئەم بەڵگەنامەیە بۆ هیچ مەبەستێکی فەرمی بەکارنایەت
+                            <br>
+                            <div class="row px-5">
+                                <div class="col-2 text-right"></div>
+                                <div class="col-10 text-right">تێبینی: ئەم بەڵگەنامەیە بۆ هیچ مەبەستێکی فەرمی بەکارنایەت
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <br clear="all" style="page-break-before:always" />
-    @endif
-    @if ($round == 2)
-    @if (is_null($value->degreex2))
-<div  id="krt-{{$value->id}}">
+        <br clear="all" style="page-break-before:always" />
+        @endif
+        @if ($round == 2)
+        @if (is_null($value->degreex2))
+        <div id="krt-{{$value->id}}">
 
-<div class="container print">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body p-0">
-                        <div class="row pt-3">
-                            <div class="col-sm-4 text-right px-5">
-                                <p class="px-3">وەرز : {{$semester}}</p>
-                                <p class="px-3">خول : {{$round}}</p>
-                                <p class="px-3">قۆناغ : {{$stage}}</p>
-                            </div>
-                            <div class="col-sm-4">
-                                <img src="{{asset("lg.png")}}" class="img-fluid">
-                            </div>
-                            <div class="col-sm-4 text-right px-5">
-                                <p class="px-3">کۆلێجی زانکۆی گۆیژە</p>
-                                <p class="px-3">بۆ دیراساتی ئاینیی</p>
-                                <p class="px-3">بەش: {{$value->department->d_name}}</p>
-                            </div>
-                        </div>
-                        <div class="row pt-3">
-                            <div class="col-sm-12 text-center">
-                                <p>ئەنجامی تاقیکردنەوەی کۆتایی ساڵی خوێندن {{$value->year->y_year}}</p>
-                            </div>
-                        </div>
+            <div class="container print">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body p-0">
+                                <div class="row pt-3">
+                                    <div class="col-sm-5 text-left px-5">
+                                        <p class="px-3">وەرز : {{toTextTH($semester)}}</p>
+                                        <p class="px-3">خول : {{toTextTH($round)}}</p>
+                                        <p class="px-3">قۆناغ : {{toTextTH($stage)}}</p>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <center> <img src="{{asset("lg.png")}}" height="200px" width="200px"
+                                                class="img-fluid"></center>
+                                    </div>
+                                    <div class="col-sm-5 text-right px-5">
+                                        <p class="px-3">کۆلێجی زانکۆی گۆیژە</p>
+                                        <p class="px-3">بەش: {{$value->department->d_name}}</p>
+                                    </div>
+                                </div>
+                                <div class="row pt-3">
+                                    <div class="col-sm-12 text-center">
+                                        <p>ئەنجامی تاقیکردنەوەی کۆتایی ساڵی خوێندن {{$value->year->y_year}}</p>
+                                    </div>
+                                </div>
 
 
-                        <div class="row py-0 px-5 pt-1">
-                            <div class="col-md-6">
-                                <table class="text-left">
-                                    <tr>
-                                        <td class="p-1">{{$value->id}}</td>
-                                        <td class="p-1" style="background-color: #577C6BAA;color: white;">:کۆد </td>
-                                    </tr>
+                                <div class="row py-0 px-5 pt-1">
+                                    <div class="col-md-6">
+                                        <table class="text-left">
+                                            <tr>
+                                                <td class="p-1">{{$value->id}}</td>
+                                                <td class="p-1" style="background-color: #577C6BAA;color: white;">:کۆد
+                                                </td>
+                                            </tr>
 
-                                </table>
-                            </div>
+                                        </table>
+                                    </div>
 
-                            <div class="col-md-6 text-right">
-                                <table class="text-right">
-                                    <tr class="text-right" style="">
-                                        <td class="p-1" style="width: %90 !important">{{$value->s_fullname}}</td>
-                                        <td class="p-1" style="background-color: #577C6BAA;color: white">:ناوی خوێندکار
-                                        </td>
-                                    </tr>
+                                    <div class="col-md-6 text-right">
+                                        <table class="text-right">
+                                            <tr class="text-right" style="">
+                                                <td class="p-1" style="width: %90 !important">{{$value->s_fullname}}
+                                                </td>
+                                                <td class="p-1" style="background-color: #577C6BAA;color: white">:ناوی
+                                                    خوێندکار
+                                                </td>
+                                            </tr>
 
-                                </table>
-                            </div>
-                        </div>
+                                        </table>
+                                    </div>
+                                </div>
 
-                        <div class="row px-5 pt-2">
-                            <div class="col-md-12">
-                                <table style="width: 100%; border-collapse: collapse; margin-bottom: 1rem">
-                                    <thead>
-                                        <tr style="height: 100px !important" class="orage-header">
-                                            <th class="border-0 text-uppercase small" style="text-align:center;">ئاست
-                                            </th>
-                                            <th class="border-0 text-uppercase small" style="text-align:center;">بابەت
-                                            </th>
-                                            <th class="border-0 text-uppercase small p-2" style="text-align:center;">ژ
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="main-table">
-                                            @php
+                                <div class="row px-5 pt-2">
+                                    <div class="col-md-12">
+                                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 1rem">
+                                            <thead>
+                                                <tr style="height: 75px !important" class="orage-header">
+                                                    <th class="border-0 text-uppercase small"
+                                                        style="text-align:center;">
+                                                        ئاست
+                                                    </th>
+                                                    <th class="border-0 text-uppercase small"
+                                                        style="text-align:center;">
+                                                        بابەت
+                                                    </th>
+                                                    <th class="border-0 text-uppercase small p-2"
+                                                        style="text-align:center;">ژ
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="main-table">
+                                                @php
                                                 $count = 0;
-                                            @endphp
-                                        @foreach ($value->degreeAll as $zhm=>$item)
-                                        @php
+                                                @endphp
+                                                @foreach ($value->degreeAll as $zhm=>$item)
+                                                @php
                                                 $count ++;
-                                            @endphp
-                                        <tr style="height: 100px !important">
-                                            <td style="text-align:center;">
-                                                {{setRange($item->degreex2->dg_bryar_x2+$item->degreex2->dg_all_x2+$item->degreex2->dg_49_x2)}}
-                                            </td>
-                                            <td style="text-align:center;">{{$item->course->c_name}}</td>
-                                            <td style="text-align:center;">{{++$zhm}}</td>
-                                        </tr>
-                                        @endforeach
-                                       @if ($count == 0)
-                                           <script>
-                                               $('#krt2-{{$value->id}}').remove();
-                                               $('#krt-{{$value->id}}').remove();
-                                           </script>
-                                       @endif
-                                    
-                                        
+                                                @endphp
+                                                <tr style="height: 75px !important">
+                                                    <td style="text-align:center;">
+                                                        {{setRange($item->degreex2->dg_bryar_x2+$item->degreex2->dg_all_x2+$item->degreex2->dg_49_x2)}}
+                                                    </td>
+                                                    <td style="text-align:center;">{{$item->course->c_name}}</td>
+                                                    <td style="text-align:center;">{{++$zhm}}</td>
+                                                </tr>
+                                                @if($item->degreex2->dg_bryar_x2+$item->degreex2->dg_all_x2+$item->degreex2->dg_49_x2
+                                                < 50) @php $darnachu++; @endphp @endif @endforeach @if ($count==0)
+                                                    <script>
+                                                    $('#krt2-{{$value->id}}').remove();
+                                                    $('#krt-{{$value->id}}').remove();
+                                                    </script>
+                                                    @endif
 
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="row  px-5">
-                            <div class="col-6 text-left pl-5">لیژنەی تاقیکردنەوەکان</div>
-                            <div class="col-6 text-right">ئەنجام : دەرچووە</div>
-                        </div>
-                        <br>
-                        <br>
-                        <div class="row px-5">
-                            <div class="col-2 text-right"></div>
-                            <div class="col-10 text-right">تێبینی: ئەم بەڵگەنامەیە بۆ هیچ مەبەستێکی فەرمی بەکارنایەت
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row  px-5">
+                                    <div class="col-6 text-left pl-5"><br><br><br><br>-left pl-5"><br><br><br><br>لیژنەی تاقیکردنەوەکان</div>
+                                    @if($darnachu != 0)
+                                    <div class="col-6 text-right">ئەنجام : دەرنەچووە</div>
+
+                                    @else
+                                    <div class="col-6 text-right">ئەنجام : دەرچووە</div>
+                                    @endif
+                                </div>
+                                <br>
+                                <br>
+                                <div class="row px-5">
+                                    <div class="col-2 text-right"></div>
+                                    <div class="col-10 text-right">تێبینی: ئەم بەڵگەنامەیە بۆ هیچ مەبەستێکی فەرمی
+                                        بەکارنایەت
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <br clear="all" style="page-break-before:always" id="krt2-{{$value->id}}" />
         </div>
-    </div>
-    <br clear="all" style="page-break-before:always" id="krt2-{{$value->id}}"/>
-</div>
-    
 
-    @endif
-    @endif
 
-    @endforeach
+        @endif
+        @endif
 
-    <script>
-        window.print();
+        @endforeach
+
+        <script>
+            window.print();
         
-    </script>
+        </script>
 </body>
 
 </html>

@@ -37,29 +37,28 @@ class PrinterController extends Controller
         if ($request->round == 1) {
             $student = Students::with(['degreeAll' => function ($qq) use ($request) {
                 return $qq->with(['course'])
-                ->where('dg_stage', $request->stage)
-                ->where('dg_semester', $request->semester)
-                ->where('dg_year', $request->year)
-                ->get();
-            },'department','year'])->where('s_department', $request->department)->where('s_stage', $request->stage)->get();
+                    ->where('dg_stage', $request->stage)
+                    ->where('dg_semester', $request->semester)
+                    ->where('dg_year', $request->year)
+                    ->get();
+            }, 'department', 'year'])->where('s_department', $request->department)->where('s_stage', $request->stage)->get();
         } else {
             $student = Students::with(['degreeAll' => function ($qq) use ($request) {
                 return $qq->with(['degreex2' => function ($dd) use ($request) {
                     return $dd;
-                },'course'])
+                }, 'course'])
                     ->where('dg_stage', $request->stage)
                     ->where('dg_semester', $request->semester)
                     ->where('dg_year', $request->year)
                     ->whereRaw('(dg_all_x1 + dg_49_x1 + dg_bryar_x1) < 50')
                     ->get();
-            },'department','year'])
-            ->where('s_department', $request->department)
-            ->where('s_stage', $request->stage)
-            ->get();
+            }, 'department', 'year'])
+                ->where('s_department', $request->department)
+                ->where('s_stage', $request->stage)
+                ->get();
         }
-        // dd($student[0]->degreex1->course->c_name);
-        return view('admin.pages.print.kart')->with(["data"=>$student,"stage"=>$request->stage,"semester"=>$request->semester,"round"=>$request->round]);
-
+        // dd($student[0]);
+        return view('admin.pages.print.kart')->with(["data" => $student, "stage" => $request->stage, "semester" => $request->semester, "round" => $request->round]);
     }
     public function printcard(Request $request)
     {
@@ -91,10 +90,11 @@ class PrinterController extends Controller
                     ->whereRaw('(dg_all_x1 + dg_49_x1 + dg_bryar_x1) < 50')
                     ->get();
             }])
-            ->where('s_department', $request->department)
-            ->where('s_stage', $request->stage)
-            ->get();
+                ->where('s_department', $request->department)
+                ->where('s_stage', $request->stage)
+                ->get();
         }
-        return view('admin.pages.print.daraja')->with(['data'=>$student]);
+        return view('admin.pages.print.daraja')->with(['data' => $student]);
     }
+   
 }

@@ -108,21 +108,34 @@ function toText($i)
 }
 function setRange($i)
 {
-    if($i < 50){
+    if ($i < 50) {
         return "کەوتوو";
-    }elseif ($i >= 50 && $i < 60) {
+    } elseif ($i >= 50 && $i < 60) {
         return "پەسەند";
-
-    }elseif ($i >= 60 && $i < 70) {
+    } elseif ($i >= 60 && $i < 70) {
         return "ناوەند";
-
-    }elseif ($i >= 70 && $i < 80) {
+    } elseif ($i >= 70 && $i < 80) {
         return "باش";
-
-    }elseif ($i >= 80 && $i < 90) {
+    } elseif ($i >= 80 && $i < 90) {
         return "زۆرباش";
-
-    }elseif ($i >= 90 && $i <= 100) {
+    } elseif ($i >= 90 && $i <= 100) {
         return "نایاب";
     }
+}
+function toTextTH($i)
+{
+    $nums = [
+        "صفرەم",
+        "یەکەم",
+        "دووەم",
+        "سێیەم",
+        "چوارەم",
+        "پێنجەم",
+        "شەشەم",
+        "حەوتەم",
+        "هەشتەم",
+        "نۆیەم",
+        "دەیەم"
+    ];
+    return $nums[$i];
 }
